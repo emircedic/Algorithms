@@ -41,7 +41,7 @@
                 if (!isComposite[i])
                 {
                     primeNumbers.Add(i);
-                    for (int j = i * i; j < isComposite.Length; j += i)
+                    for (int j = i * i; j < isComposite.Length; j += i) // Setting all numbers multiplied and than added by the same number as composite.
                     {
                         isComposite[j] = true;
                     }
