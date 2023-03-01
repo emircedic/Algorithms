@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Algorithms/.vs/Algorithms/v17
+/Algorithms/obj
+/Algorithms/bin/Debug/net6.0
+/Algorithms/.vs/Algorithms
+/.vs/Algorithms/v17
