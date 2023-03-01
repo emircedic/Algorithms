@@ -1,5 +1,7 @@
 ﻿namespace Algorithms
 {
+    // Prime numbers are numbers which are only divisible by themselves and one (1).
+    // Examples: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, etc.
     public static class PrimeNumberGenerator
     {
         public static List<int> GeneratePrimeNumbersBruteForce(int countOfPrimeNumbers)
