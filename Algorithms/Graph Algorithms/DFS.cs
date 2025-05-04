@@ -26,7 +26,7 @@
             List<int> result = new();
             Stack<TreeNode> stack = new Stack<TreeNode>();
 
-            // We have to specify root != null for the following edge case: [1,null,2].
+            // We have to specify 'root != null' for the following edge case: [1,null,2].
             // Stack would be empty but we still have the node '2' to process.
             while (root != null || stack.Count > 0)
             {
