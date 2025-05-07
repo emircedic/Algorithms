@@ -5,18 +5,38 @@
         public IList<int> RecursiveDFS(TreeNode root)
         {
             List<int> result = new();
-            RecursiveInternal(root, result);
+            RecursiveInternalInOrder(root, result);
             return result;
         }
 
-        private void RecursiveInternal(TreeNode node, List<int> values)
+        private void RecursiveInternalInOrder(TreeNode node, List<int> values)
         {
             if (node == null)
                 return;
 
-            RecursiveInternal(node.left, values);
+            RecursiveInternalInOrder(node.left, values);
             values.Add(node.val);
-            RecursiveInternal(node.right, values);
+            RecursiveInternalInOrder(node.right, values);
+        }
+
+        private void RecursiveInternalPreOrder(TreeNode node, List<int> values)
+        {
+            if (node == null)
+                return;
+
+            values.Add(node.val);
+            RecursiveInternalInOrder(node.left, values);
+            RecursiveInternalInOrder(node.right, values);
+        }
+
+        private void RecursiveInternalPostOrder(TreeNode node, List<int> values)
+        {
+            if (node == null)
+                return;
+
+            RecursiveInternalInOrder(node.left, values);
+            RecursiveInternalInOrder(node.right, values);
+            values.Add(node.val);
         }
 
 
