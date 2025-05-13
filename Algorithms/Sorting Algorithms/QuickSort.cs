@@ -17,6 +17,8 @@
             int pivotValue = nums[endIndex - 1];
             int nextAvailableSlot = startIndex;
 
+            // We can't set 'i = startIndex + 1' because we have to define the value at 'startIndex' as smaller than pivot.
+            // Otherwise the value will be moved as greater which is not always correct.
             for (int i = startIndex; i < endIndex; i++)
             {
                 if (nums[i] < pivotValue)

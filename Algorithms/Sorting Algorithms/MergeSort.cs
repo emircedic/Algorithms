@@ -23,7 +23,9 @@
 
         private void Merge(int startIndex, int midIndex, int endIndex, int[] nums)
         {
-            int[] tempResult = new int[endIndex];
+            // Small optimization to create temporary array of only necessary size.
+            // We do have to decrement by ' - startIndex' wherever the temporary array is called but it saves a lot of memory.
+            int[] tempResult = new int[endIndex - startIndex];
 
             int mainIndex = startIndex;
             int leftPartIndex = startIndex;
@@ -33,12 +35,12 @@
             {
                 if (nums[leftPartIndex] <= nums[rightPartIndex])
                 {
-                    tempResult[mainIndex] = nums[leftPartIndex];
+                    tempResult[mainIndex - startIndex] = nums[leftPartIndex];
                     leftPartIndex++;
                 }
                 else
                 {
-                    tempResult[mainIndex] = nums[rightPartIndex];
+                    tempResult[mainIndex - startIndex] = nums[rightPartIndex];
                     rightPartIndex++;
                 }
 
@@ -47,20 +49,20 @@
 
             while (leftPartIndex < midIndex)
             {
-                tempResult[mainIndex] = nums[leftPartIndex];
+                tempResult[mainIndex - startIndex] = nums[leftPartIndex];
                 leftPartIndex++;
                 mainIndex++;
             }
 
             while (rightPartIndex < endIndex)
             {
-                tempResult[mainIndex] = nums[rightPartIndex];
+                tempResult[mainIndex - startIndex] = nums[rightPartIndex];
                 rightPartIndex++;
                 mainIndex++;
             }
 
             for (int i = startIndex; i < endIndex; i++)
-                nums[i] = tempResult[i];
+                nums[i] = tempResult[i - startIndex];
         }
     }
 }
