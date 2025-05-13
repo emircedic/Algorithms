@@ -46,6 +46,8 @@
             List<int> result = new();
             Stack<TreeNode> stack = new Stack<TreeNode>();
 
+            // In-order traversal.
+
             // We have to specify 'root != null' for the following edge case: [1,null,2].
             // Stack would be empty but we still have the node '2' to process.
             while (root != null || stack.Count > 0)
@@ -60,6 +62,50 @@
                 {
                     stack.Push(root);
                     root = root.left;
+                }
+            }
+
+            // Pre-order traversal.
+            while (root != null || stack.Count > 0)
+            {
+                if (root != null)
+                {
+                    Console.WriteLine(root.val);
+                    if (root.right != null)
+                    {
+                        stack.Push(root.right);
+                    }
+                    root = root.left;
+                }
+                else
+                {
+                    root = stack.Pop();
+                }
+            }
+
+            // Post-order traversal.
+            Stack<bool> visit = new Stack<bool>();
+            visit.Push(false);
+
+            while (stack.Count > 0)
+            {
+                TreeNode curr = stack.Pop();
+                bool visited = visit.Pop();
+                if (curr != null)
+                {
+                    if (visited)
+                    {
+                        Console.WriteLine(curr.val);
+                    }
+                    else
+                    {
+                        stack.Push(curr);
+                        visit.Push(true);
+                        stack.Push(curr.right);
+                        visit.Push(false);
+                        stack.Push(curr.left);
+                        visit.Push(false);
+                    }
                 }
             }
 
