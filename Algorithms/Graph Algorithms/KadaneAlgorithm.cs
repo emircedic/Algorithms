@@ -42,14 +42,15 @@
         // but with sub-optimal space complexity.
         public static int DynamicProgramming(int[] nums)
         {
-            int[] array = new int[nums.Length];
-
-            array[0] = nums[0];
-
+            int maxValue = nums[0];
+    
             for (int i = 1; i < nums.Length; i++)
-                array[i] = nums[i] + Math.Max(0, array[i - 1]);
-
-            return array.Max();
+            {
+                nums[i] = Math.Max(nums[i], nums[i] + nums[i - 1]);
+                maxValue = Math.Max(maxValue, nums[i]);
+            }
+    
+            return maxValue;
         }
 
         // Return the left and right index of the max subarray sum,
