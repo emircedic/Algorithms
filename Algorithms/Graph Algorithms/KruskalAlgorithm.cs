@@ -5,7 +5,7 @@
         public int MinimumSpanningTree(int n, List<List<int>> edges)
         {
             int totalMSTWeight = 0;
-            int mstEdgeCount = 0; // Can be replaced with method from UnionFind.
+            int mstEdgeCount = 0; // Can be replaced with method from UnionFind that would return number of components.
 
             PriorityQueue<(int x, int y, int weight), int> minHeap = new();
             foreach (var edge in edges)
