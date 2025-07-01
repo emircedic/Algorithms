@@ -1,5 +1,11 @@
 ﻿namespace Algorithms.Graph_Algorithms
 {
+    // Space complexity: O(E log E)
+    // Worst case scenario we insert/remove every edge from the Min Heap.
+
+    // Time complexity: O(E)
+    
+    // E represents the edges.
     public class DijkstraAlgorithm
     {
         public Dictionary<int, int> ShortestPath(int n, List<List<int>> edges, int src)
