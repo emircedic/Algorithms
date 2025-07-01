@@ -26,14 +26,15 @@
         public static int Kadanes(int[] nums)
         {
             int maxSum = nums[0];
-            int curSum = 0;
+            int currentSum = 0;
 
             foreach (int n in nums)
             {
-                curSum = Math.Max(curSum, 0);
-                curSum += n;
-                maxSum = Math.Max(maxSum, curSum);
+                // Each time we choose to either restart by picking only the current number or the current number with previous array (if it's worth it => 'currentSum > 0').
+                currentSum = Math.Max(n, currentSum + n);
+                maxSum = Math.Max(maxSum, currentSum);
             }
+            
             return maxSum;
         }
 
@@ -41,14 +42,15 @@
         // but with sub-optimal space complexity.
         public static int DynamicProgramming(int[] nums)
         {
-            int[] array = new int[nums.Length];
-
-            array[0] = nums[0];
-
+            int maxValue = nums[0];
+    
             for (int i = 1; i < nums.Length; i++)
-                array[i] = nums[i] + Math.Max(0, array[i - 1]);
-
-            return array.Max();
+            {
+                nums[i] = Math.Max(nums[i], nums[i] + nums[i - 1]);
+                maxValue = Math.Max(maxValue, nums[i]);
+            }
+    
+            return maxValue;
         }
 
         // Return the left and right index of the max subarray sum,

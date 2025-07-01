@@ -3,7 +3,7 @@
     // Used to find minimum-weight path with a set start-node on a graph.
     // Works only on positive weight values.
 
-    // Time complexity: O((E + V * log V)
+    // Time complexity: O((E + V) * log V)
     // Space complexity: O(E + V) 
 
     // E - Edge
