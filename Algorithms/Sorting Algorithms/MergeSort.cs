@@ -1,5 +1,10 @@
 ﻿namespace Algorithms
 {
+    // Time complexity: O(n * log n)
+    // The array is split 'log n' times and for each one we merge the two sections.
+    
+    // Space complexity : O(n + log n)
+    // Where 'log n' represents the max depth of the recursion call stack.
     internal class MergeSort
     {
         public int[] SortArray(int[] nums)
@@ -18,51 +23,53 @@
 
             MergeSortInternal(startIndex, midIndex, nums);
             MergeSortInternal(midIndex, endIndex, nums);
-            Merge(startIndex, midIndex, endIndex, nums);
+            Merge(nums, startIndex, midIndex, endIndex);
         }
 
-        private void Merge(int startIndex, int midIndex, int endIndex, int[] nums)
+        private void Merge(int[] nums, int startIndex, int midIndex, int endIndex)
         {
-            // Small optimization to create temporary array of only necessary size.
-            // We do have to decrement by ' - startIndex' wherever the temporary array is called but it saves a lot of memory.
-            int[] tempResult = new int[endIndex - startIndex];
+            int[] leftHalf = new int[midIndex - startIndex];
+            int[] rightHalf = new int[endIndex - midIndex];
+
+            for (int i = startIndex; i < midIndex; i++)
+                leftHalf[i - startIndex] = nums[i];
+
+            for (int j = midIndex; j < endIndex; j++)
+                rightHalf[j - midIndex] = nums[j];
 
             int mainIndex = startIndex;
-            int leftPartIndex = startIndex;
-            int rightPartIndex = midIndex;
+            int leftIndex = 0;
+            int rightIndex = 0;
 
-            while (leftPartIndex < midIndex && rightPartIndex < endIndex)
+            while (leftIndex < midIndex - startIndex && rightIndex < endIndex - midIndex)
             {
-                if (nums[leftPartIndex] <= nums[rightPartIndex])
+                if (leftHalf[leftIndex] <= rightHalf[rightIndex])
                 {
-                    tempResult[mainIndex - startIndex] = nums[leftPartIndex];
-                    leftPartIndex++;
+                    nums[mainIndex] = leftHalf[leftIndex];
+                    leftIndex++;
                 }
                 else
                 {
-                    tempResult[mainIndex - startIndex] = nums[rightPartIndex];
-                    rightPartIndex++;
+                    nums[mainIndex] = rightHalf[rightIndex];
+                    rightIndex++;
                 }
 
                 mainIndex++;
             }
 
-            while (leftPartIndex < midIndex)
+            while (leftIndex < midIndex - startIndex)
             {
-                tempResult[mainIndex - startIndex] = nums[leftPartIndex];
-                leftPartIndex++;
+                nums[mainIndex] = leftHalf[leftIndex];
                 mainIndex++;
+                leftIndex++;
             }
 
-            while (rightPartIndex < endIndex)
+            while (rightIndex < endIndex - midIndex)
             {
-                tempResult[mainIndex - startIndex] = nums[rightPartIndex];
-                rightPartIndex++;
+                nums[mainIndex] = rightHalf[rightIndex];
                 mainIndex++;
+                rightIndex++;
             }
-
-            for (int i = startIndex; i < endIndex; i++)
-                nums[i] = tempResult[i - startIndex];
         }
     }
 }

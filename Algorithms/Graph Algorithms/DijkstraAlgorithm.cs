@@ -1,5 +1,14 @@
 ﻿namespace Algorithms.Graph_Algorithms
 {
+    // Used to find minimum-weight path with a set start-node on a graph.
+    // Works only on positive weight values.
+
+    // Time complexity: O((E + V * log V)
+    // Space complexity: O(E + V) 
+
+    // E - Edge
+    // V - Vertex (node)
+    // log V - Enqueing/Dequing nodes.
     public class DijkstraAlgorithm
     {
         public Dictionary<int, int> ShortestPath(int n, List<List<int>> edges, int src)
