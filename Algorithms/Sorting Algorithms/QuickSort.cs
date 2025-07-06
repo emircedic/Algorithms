@@ -9,6 +9,8 @@
             return nums;
         }
 
+        // Time: Omega(n * logn) - Theta(n * logn) - O(n * n)
+        // Space: Omega(logn) - Theta(logn) - O(n)
         private void QuickSortInternal(int startIndex, int endIndex, int[] nums)
         {
             if (endIndex - startIndex <= 1)
@@ -42,7 +44,7 @@
     /// <summary>
     /// Quick-select is a variant of quick-sort where we sort only the part of the array where the target value is located.
     /// On every iteration in best case we remove half the elements of the array.
-    /// Time: Omega(n) - Theta(n) - O(n* n)
+    /// Time: Omega(n) - Theta(n) - O(n*n)
     /// Space: Omega(logn) - Theta(logn) - O(n)
     /// </summary>
     public class QuickSelect
