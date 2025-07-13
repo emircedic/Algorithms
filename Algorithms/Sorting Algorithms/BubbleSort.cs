@@ -1,5 +1,7 @@
 ﻿namespace Algorithms
 {
+    // Time complexity: O(n * n)
+    // Space complexity: O(1)       
     public class BubbleSort
     {
         public int[] SortArray(int[] nums)
