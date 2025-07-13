@@ -1,9 +1,9 @@
 ﻿namespace Algorithms
 {
+    // Time complexity: O(n * n)
+    // Space complexity: O(1)     
     public class InsertSort
     {
-        // Time complexity: O(n * n)
-        // Space complexity: O(1)
         public int[] SortArray(int[] nums)
         {
             for (int i = 0; i < nums.Length; i++)
