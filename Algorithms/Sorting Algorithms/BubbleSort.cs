@@ -4,7 +4,6 @@
     {
         public int[] SortArray(int[] nums)
         {
-
             for (int i = 0; i < nums.Length - 1; i++)
             {
                 for (int j = 0; j < nums.Length - i - 1; j++)
