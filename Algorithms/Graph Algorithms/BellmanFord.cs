@@ -8,62 +8,39 @@
 
     // E - Edge
     // V - Vertex (node)
-    public class BellmanFord
+    public int BellmanFord (int[][] times, int n, int k)
     {
-        public int[] ComputeShortestPaths(List<Edge> edges, int vertexCount, int source)
+        Dictionary<int, int> nodeDistance = new();
+        for (int i = 1; i <= n; i++)
+            nodeDistance.Add(i, int.MaxValue);
+
+        nodeDistance[k] = 0;
+
+        // Define min distance to each node.
+        for (int i = 0; i < n - 1; i++)
         {
-            int[] distance = new int[vertexCount];
-            Array.Fill(distance, int.MaxValue);
-            distance[source] = 0;
+            bool updateOccurred = false;
 
-            for (int i = 0; i < vertexCount - 1; i++)
+            foreach (var edge in times)
             {
-                foreach (var edge in edges)
+                if (nodeDistance[edge[0]] != int.MaxValue && nodeDistance[edge[0]] + edge[2] < nodeDistance[edge[1]])
                 {
-                    if (distance[edge.Source] != int.MaxValue &&
-                        distance[edge.Source] + edge.Weight < distance[edge.Destination])
-                    {
-                        distance[edge.Destination] = distance[edge.Source] + edge.Weight;
-                    }
+                    nodeDistance[edge[1]] = nodeDistance[edge[0]] + edge[2];
+                    updateOccurred = true;
                 }
             }
 
-            // Negative cycle detection
-            foreach (var edge in edges)
-            {
-                if (distance[edge.Source] != int.MaxValue &&
-                    distance[edge.Source] + edge.Weight < distance[edge.Destination])
-                {
-                    throw new InvalidOperationException("Graph contains a negative weight cycle.");
-                }
-            }
-
-            return distance;
+            if (!updateOccurred)
+                break;
         }
-    }
 
-    public class Edge
-    {
-        public int Source;
-        public int Destination;
-        public int Weight;
-    }
-
-    /*
-    Usage:
-
-        var edges = new List<Edge>
+        // Find negative self-recursion.
+        foreach (var edge in times)
         {
-            new Edge { Source = 0, Destination = 1, Weight = 4 },
-            new Edge { Source = 0, Destination = 2, Weight = 5 },
-            new Edge { Source = 1, Destination = 2, Weight = -3 },
-            new Edge { Source = 2, Destination = 3, Weight = 4 }
-        };
+            if (nodeDistance[edge[0]] + edge[2] < nodeDistance[edge[1]])
+                return -1;
+        }
 
-        int vertexCount = 4;
-        int source = 0;
-
-        var bf = new BellmanFord();
-        int[] distances = bf.ComputeShortestPaths(edges, vertexCount, source);      
-     */
+        return nodeDistance.Values.Max() == int.MaxValue ? -1 : nodeDistance.Values.Max();
+    }
 }
