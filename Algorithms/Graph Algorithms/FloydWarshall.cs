@@ -10,51 +10,53 @@
     // V - Vertex (node)
     public class FloydWarshall
     {
-        public const int INF = int.MaxValue / 2; // avoid overflow
-
-        public int[,] ComputeShortestPaths(int[,] graph)
+        public const int INF = int.MaxValue / 2; // Prevent overflow
+    
+        public int NetworkDelayTime(int[][] times, int n, int k)
         {
-            int V = graph.GetLength(0);
-            int[,] dist = (int[,])graph.Clone();
-
-            for (int k = 0; k < V; k++)
+            int[,] nodeDistance = new int[n, n];
+    
+            // Initialize distances
+            for (int i = 0; i < n; i++)
             {
-                for (int i = 0; i < V; i++)
+                for (int j = 0; j < n; j++)
+                    nodeDistance[i, j] = i == j ? 0 : INF;
+            }
+    
+            // Populate edges
+            foreach (var edge in times)
+            {
+                int u = edge[0] - 1;
+                int v = edge[1] - 1;
+                int w = edge[2];
+                nodeDistance[u, v] = w;
+            }
+    
+            // Floyd–Warshall algorithm
+            for (int via = 0; via < n; via++)
+            {
+                for (int i = 0; i < n; i++)
                 {
-                    for (int j = 0; j < V; j++)
+                    for (int j = 0; j < n; j++)
                     {
-                        if (dist[i, k] + dist[k, j] < dist[i, j])
-                        {
-                            dist[i, j] = dist[i, k] + dist[k, j];
-                        }
+                        if (nodeDistance[i, via] + nodeDistance[via, j] < nodeDistance[i, j])
+                            nodeDistance[i, j] = nodeDistance[i, via] + nodeDistance[via, j];
                     }
                 }
             }
-
-            // Optional: Detect negative cycles
-            for (int i = 0; i < V; i++)
+    
+            // Extract result: max distance from start node k
+            int maxTime = 0;
+            for (int target = 0; target < n; target++)
             {
-                if (dist[i, i] < 0)
-                    throw new InvalidOperationException("Graph contains a negative weight cycle.");
+                int time = nodeDistance[k - 1, target];
+                if (time >= INF)
+                    return -1;
+    
+                maxTime = Math.Max(maxTime, time);
             }
-
-            return dist;
+    
+            return maxTime;
         }
-
-        /*
-        Usage:
-
-            int INF = FloydWarshall.INF;
-            int[,] graph = {
-                { 0,   3,   INF, 5 },
-                { 2,   0,   INF, 4 },
-                { INF, 1,   0,   INF },
-                { INF, INF, 2,   0 }
-            };
-
-            var fw = new FloydWarshall();
-            int[,] result = fw.ComputeShortestPaths(graph);
-         */
-
     }
 }
