@@ -44,6 +44,13 @@
                     }
                 }
             }
+
+            // Detect negative cycles
+            for (int i = 0; i < n; i++)
+            {
+                if (nodeDistance[i, i] < 0)
+                    return -1;
+            }
     
             // Extract result: max distance from start node k
             int maxTime = 0;
